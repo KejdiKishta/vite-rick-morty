@@ -8,15 +8,16 @@ Creare un componente loader da visualizzare fintantoché i risultati non sono pr
 
 <script>
 import axios from 'axios';
+import AppCard from './components/AppCard.vue';
 
 export default {
   components: {
-
+    AppCard
   },
 
   data() {
     return {
-
+      characters: [],
     }
   },
 
@@ -24,14 +25,17 @@ export default {
     axios
     .get("https://rickandmortyapi.com/api/character")
     .then((resp) => {
-      console.log(resp);
+      this.characters = resp.data.results;
+      console.log(this.characters);
     })
   }
 }
 </script>
 
 <template>
+  <h1 class="text-center py-5">Rick and Morty App</h1>
 
+  <AppCard />
 </template>
 
 <style lang="scss">
