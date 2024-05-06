@@ -8,11 +8,11 @@ Creare un componente loader da visualizzare fintantoché i risultati non sono pr
 
 <script>
 import axios from 'axios';
-import AppCard from './components/AppCard.vue';
+import AppCards from './components/AppCards.vue';
 
 export default {
   components: {
-    AppCard
+    AppCards
   },
 
   data() {
@@ -35,7 +35,7 @@ export default {
 <template>
   <h1 class="text-center py-5">Rick and Morty App</h1>
 
-  <AppCard />
+  <AppCards :characters="characters"/>
 </template>
 
 <style lang="scss">
