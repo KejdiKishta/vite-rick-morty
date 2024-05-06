@@ -7,6 +7,8 @@ Potete consultare la documentazione completa di API qui: https://rickandmortyapi
 Creare un componente loader da visualizzare fintantoché i risultati non sono pronti. -->
 
 <script>
+import axios from 'axios';
+
 export default {
   components: {
 
@@ -16,6 +18,14 @@ export default {
     return {
 
     }
+  },
+
+  created() {
+    axios
+    .get("https://rickandmortyapi.com/api/character")
+    .then((resp) => {
+      console.log(resp);
+    })
   }
 }
 </script>
