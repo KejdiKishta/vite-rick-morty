@@ -15,10 +15,11 @@ Quando l'utente seleziona un valore dalla lista, viene effettuata una chiamata a
 2. Creare il componente AppSearch dove dovete inserire il select con delle options: alive, dead, unknown (create gli options dinamicamente tramite v-for)
 3. Inserire il componente AppSearch nel App.vue
 4. Create evento al cambiamento del valore del select in AppSearch. In App.vue inserite ascolto dell'evento e eseguite console.log per verificare se l'evento funzioni.
-?da fare
 5. Collegare tramite v-model il select al selectedStatus dello store (nel componente AppSearch)
-6. Nell App.vue importare lo store e in base al valore del selectedStatus fare la chiamata api. Nel then aggiornare i la lista di personaggi. -->
+6. Nell App.vue importare lo store e in base al valore del selectedStatus fare la chiamata api. Nel then aggiornare i la lista di personaggi.
+-->
 <!-- *Bonus:
+?da fare
 1. Fare refactorin dell'app, inserendo la lista dei personaggi nello store globale
 2. Creare un componente che mostri il numero totale di risultati ottenuti. -->
 
@@ -44,18 +45,32 @@ export default {
   },
 
   created() {
-    axios
-    .get("https://rickandmortyapi.com/api/character")
-    .then((resp) => {
-      // copio il risultato del get nell'array
-      this.characters = resp.data.results;
-      console.log(this.characters);
-    })
+    this.logStatus()
   },
 
   methods: {
     logStatus: function () {
       console.log(store.selectedStatus);
+
+      // array vuoto che conterrà il filtro selezionato
+      let statusObj= {}
+
+      // aggiungiamo il filtro selezionato nella variabile solo se è diverso da All perchè non è uno status nell'API se vogliamo tutti il params deve essere vuoto
+      if (this.store.selectedStatus !== "All") {
+        statusObj.status = this.store.selectedStatus
+      }
+
+      console.log(statusObj);
+
+      // chiamata axios con il parametro selezionato
+      axios
+      .get("https://rickandmortyapi.com/api/character", { params: statusObj })
+      .then((resp) => {
+        // copio il risultato del get nell'array
+        this.characters = resp.data.results;
+        console.log(this.characters);
+      })
+
     }
   }
 }
@@ -64,6 +79,7 @@ export default {
 <template>
   <h1 class="text-center py-5">Rick and Morty App</h1>
 
+  <!-- filter è stato creato nel componente con $emit per poter ascoltare il cambiamento del valore di select -->
   <AppSearch @filter="logStatus"/>
 
   <AppCards :characters="characters"/>
