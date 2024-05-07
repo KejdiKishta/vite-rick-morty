@@ -8,6 +8,7 @@ export default {
 
 <template>
     <div class="card border-0 bg-transparent">
+        <!-- guardo il percorso in console e lo uso per ricavare quello che serve -->
         <img :src="cardInfo.image" class="card-img-top rounded-circle ms_shadow" :alt="cardInfo.name">
         <div class="card-body">
             <p class="card-text fs-4 text-center ms_height">{{ cardInfo.name }}</p>

@@ -7,6 +7,7 @@ Potete consultare la documentazione completa di API qui: https://rickandmortyapi
 Creare un componente loader da visualizzare fintantoché i risultati non sono pronti. -->
 
 <script>
+// import componenti
 import axios from 'axios';
 import AppCards from './components/AppCards.vue';
 
@@ -17,6 +18,7 @@ export default {
 
   data() {
     return {
+      // array di destinazione axios
       characters: [],
     }
   },
@@ -25,6 +27,7 @@ export default {
     axios
     .get("https://rickandmortyapi.com/api/character")
     .then((resp) => {
+      // copio il risultato del get nell'array
       this.characters = resp.data.results;
       console.log(this.characters);
     })
